@@ -1,9 +1,5 @@
-//
-//  ViewController.swift
-//  RatingsFilms
-//
-//  Created by Валентин Коскин on 24.10.2022.
-//
+// ViewController.swift
+// Copyright © RoadMap. All rights reserved.
 
 import UIKit
 

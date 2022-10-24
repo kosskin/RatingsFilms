@@ -74,10 +74,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = BB638FF2290709A90086CEBF /* Build configuration list for PBXNativeTarget "RatingsFilms" */;
 			buildPhases = (
+				BBFE663C290738DA003F4EDA /* SwiftFormat */,
+				BB638FF529070C660086CEBF /* SwiftLint */,
 				BB638FDA290709A70086CEBF /* Sources */,
 				BB638FDB290709A70086CEBF /* Frameworks */,
 				BB638FDC290709A70086CEBF /* Resources */,
-				BB638FF529070C660086CEBF /* SwiftLint */,
 			);
 			buildRules = (
 			);
@@ -152,6 +153,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		BBFE663C290738DA003F4EDA /* SwiftFormat */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = SwiftFormat;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftformat >/dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
