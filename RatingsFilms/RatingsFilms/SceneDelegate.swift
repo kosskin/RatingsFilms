@@ -5,6 +5,13 @@ import UIKit
 
 /// changes first screen
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+    // MARK: Constants
+
+    private enum Constants {
+        static let backgoundColorName = "backgroundColor"
+        static let textColorName = "textColor"
+    }
+
     var window: UIWindow?
 
     func scene(
@@ -17,7 +24,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see
         // `application:configurationForConnectingSceneSession` instead).
-        // guard let _ = (scene as? UIWindowScene) else { return }
+        // guard let scene = (scene as? UIWindowScene) else { return }
+//        window = UIWindow(windowScene: scene)
+//        let navigationViewController = UINavigationController(rootViewController: SearchFilmViewController())
+//        window?.rootViewController = navigationViewController
+        // navigationViewController.navigationBar.backgroundColor = UIColor(named: Constants.
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
