@@ -10,6 +10,7 @@ final class MovieCell: UITableViewCell {
     private enum Constants {
         static let backgoundColorName = "backgroundColor"
         static let textColorName = "textColor"
+        static let startUrlText = "https://image.tmdb.org/t/p/w300"
     }
 
     // MARK: Visual Components
@@ -19,6 +20,7 @@ final class MovieCell: UITableViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
         imageView.layer.cornerRadius = 20
+        imageView.clipsToBounds = true
         return imageView
     }()
 
@@ -48,7 +50,7 @@ final class MovieCell: UITableViewCell {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 12)
-        textView.textColor = .white
+        textView.textColor = UIColor(named: Constants.textColorName)
         return textView
     }()
 
@@ -81,7 +83,7 @@ final class MovieCell: UITableViewCell {
 
         guard let imageName = imageName else { return }
 
-        let urlString = "https://image.tmdb.org/t/p/w300" + imageName
+        let urlString = Constants.startUrlText + imageName
         guard let imageUrl = URL(string: urlString) else { return }
         movieImageView.image = nil
         getImageData(url: imageUrl)
@@ -114,13 +116,13 @@ final class MovieCell: UITableViewCell {
 
             nameMovieLabel.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 5),
             nameMovieLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            nameMovieLabel.heightAnchor.constraint(equalToConstant: 48),
+            nameMovieLabel.heightAnchor.constraint(equalTo: movieImageView.heightAnchor, multiplier: 0.2),
             nameMovieLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 5),
 
-            raitingLabel.rightAnchor.constraint(equalTo: movieImageView.rightAnchor, constant: 0),
+            raitingLabel.rightAnchor.constraint(equalTo: movieImageView.rightAnchor, constant: -5),
             raitingLabel.widthAnchor.constraint(equalTo: movieImageView.widthAnchor, multiplier: 0.22),
             raitingLabel.heightAnchor.constraint(equalTo: raitingLabel.widthAnchor),
-            raitingLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: 0),
+            raitingLabel.bottomAnchor.constraint(equalTo: movieImageView.bottomAnchor, constant: -5),
 
             overviewFilmTextFiew.topAnchor.constraint(equalTo: nameMovieLabel.bottomAnchor, constant: 2),
             overviewFilmTextFiew.leadingAnchor.constraint(equalTo: movieImageView.trailingAnchor, constant: 10),
