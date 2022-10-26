@@ -78,26 +78,9 @@ final class SearchFilmViewController: UIViewController {
 
     // MARK: Private Properties
 
+    private var movies: [Movie] = []
     private var movieModel = MovieModel()
-
-    @objc private func sortingButtonAction(sender: UIButton) {
-        switch sender.tag {
-        case 0:
-            let url = Constants.popularUrl
-            movieModel.filmUrl = url
-            loadMoviesData()
-        case 1:
-            let url = Constants.topRatingUrl
-            movieModel.filmUrl = url
-            loadMoviesData()
-        case 2:
-            let url = Constants.upcomingUrl
-            movieModel.filmUrl = url
-            loadMoviesData()
-        default:
-            break
-        }
-    }
+    private let networkService = NetworkService()
 
     // MARK: Life Cycle
 
@@ -141,6 +124,25 @@ final class SearchFilmViewController: UIViewController {
                 self?.searchTableView.reloadData()
             }
         })
+    }
+
+    @objc private func sortingButtonAction(sender: UIButton) {
+        switch sender.tag {
+        case 0:
+            let url = Constants.popularUrl
+            movieModel.filmUrl = url
+            loadMoviesData()
+        case 1:
+            let url = Constants.topRatingUrl
+            movieModel.filmUrl = url
+            loadMoviesData()
+        case 2:
+            let url = Constants.upcomingUrl
+            movieModel.filmUrl = url
+            loadMoviesData()
+        default:
+            break
+        }
     }
 }
 

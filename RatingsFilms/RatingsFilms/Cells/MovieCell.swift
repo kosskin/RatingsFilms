@@ -69,25 +69,21 @@ final class MovieCell: UITableViewCell {
     // MARK: Public Methods
 
     func setCell(movie: Movie) {
-        getInformationUI(title: movie.title, overview: movie.overview, raiting: movie.raiting, imageName: movie.image)
-    }
+        nameMovieLabel.text = movie.title
+        overviewFilmTextFiew.text = movie.overview
 
-    // MARK: Private Methods
-
-    private func getInformationUI(title: String?, overview: String?, raiting: Double?, imageName: String?) {
-        nameMovieLabel.text = title
-        overviewFilmTextFiew.text = overview
-
-        guard let raiting = raiting else { return }
+        guard let raiting = movie.raiting else { return }
         raitingLabel.text = String(raiting)
 
-        guard let imageName = imageName else { return }
+        guard let imageName = movie.image else { return }
 
         let urlString = Constants.startUrlText + imageName
         guard let imageUrl = URL(string: urlString) else { return }
         movieImageView.image = nil
         getImageData(url: imageUrl)
     }
+
+    // MARK: Private Methods
 
     private func getImageData(url: URL) {
         URLSession.shared.dataTask(with: url) { data, _, _ in
