@@ -15,7 +15,7 @@ final class MovieCell: UITableViewCell {
 
     // MARK: Visual Components
 
-    let movieImageView: UIImageView = {
+    private let movieImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleToFill
@@ -24,7 +24,7 @@ final class MovieCell: UITableViewCell {
         return imageView
     }()
 
-    let nameMovieLabel: UILabel = {
+    private let nameMovieLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.boldSystemFont(ofSize: 13)
@@ -34,7 +34,7 @@ final class MovieCell: UITableViewCell {
         return label
     }()
 
-    let raitingLabel: UILabel = {
+    private let raitingLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.backgroundColor = .orange
@@ -46,7 +46,7 @@ final class MovieCell: UITableViewCell {
         return label
     }()
 
-    let overviewFilmTextFiew: UITextView = {
+    private let overviewFilmTextFiew: UITextView = {
         let textView = UITextView()
         textView.translatesAutoresizingMaskIntoConstraints = false
         textView.font = .systemFont(ofSize: 12)
@@ -79,22 +79,10 @@ final class MovieCell: UITableViewCell {
 
         let urlString = Constants.startUrlText + imageName
         guard let imageUrl = URL(string: urlString) else { return }
-        movieImageView.image = nil
-        getImageData(url: imageUrl)
+        movieImageView.getImageData(url: imageUrl)
     }
 
     // MARK: Private Methods
-
-    private func getImageData(url: URL) {
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else { return }
-            DispatchQueue.main.async {
-                if let image = UIImage(data: data) {
-                    self.movieImageView.image = image
-                }
-            }
-        }.resume()
-    }
 
     private func configUI() {
         backgroundColor = UIColor(named: Constants.backgoundColorName)
