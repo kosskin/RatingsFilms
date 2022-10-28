@@ -12,6 +12,11 @@ final class MovieDetailsViewController: UIViewController {
         static let backgoundColorName = "backgroundColor"
         static let textColorName = "textColor"
         static let startUrlText = "https://image.tmdb.org/t/p/w300"
+        static let favoriteText = "Вы добавили фильм в избранное"
+        static let okText = "Ok"
+        static let unknownErrorText = "unknown error"
+        static let urlErrorText = "url error"
+        static let decodingText = "decoding error"
     }
 
     // MARK: Visual Components
@@ -48,11 +53,11 @@ final class MovieDetailsViewController: UIViewController {
         networkService.loadFilmInformationById(id: id) { [weak self] movieDetail in
             switch movieDetail {
             case .failure(.urlError):
-                print("url error")
+                print(Constants.urlErrorText)
             case .failure(.decodingError):
-                print("decoding error")
+                print(Constants.decodingText)
             case .failure(.unknownError):
-                print("unknown error")
+                print(Constants.unknownErrorText)
             case let .success(movie: movieDetail):
                 self?.currnetMovie = movieDetail
                 self?.movieDetailsTableView.reloadData()
@@ -79,8 +84,8 @@ final class MovieDetailsViewController: UIViewController {
     }
 
     @objc func getAlertAction(sender: UIBarButtonItem) {
-        let alert = UIAlertController(title: "asd", message: "21321", preferredStyle: .alert)
-        let alertAction = UIAlertAction(title: "gfhg", style: .default, handler: nil)
+        let alert = UIAlertController(title: Constants.favoriteText, message: "", preferredStyle: .alert)
+        let alertAction = UIAlertAction(title: Constants.okText, style: .default, handler: nil)
         alert.addAction(alertAction)
         present(alert, animated: true, completion: nil)
     }

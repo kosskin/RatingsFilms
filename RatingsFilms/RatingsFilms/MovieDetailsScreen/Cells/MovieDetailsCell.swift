@@ -11,6 +11,8 @@ final class MovieDetailsCell: UITableViewCell {
         static let backgoundColorName = "backgroundColor"
         static let textColorName = "textColor"
         static let startUrlText = "https://image.tmdb.org/t/p/w300"
+        static let dateRealeseText = "Дата выхода фильма: "
+        static let raitingText = "Рейтинг фильма: "
     }
 
     // MARK: Visual Components
@@ -54,8 +56,8 @@ final class MovieDetailsCell: UITableViewCell {
     func setCell(movie: Movie) {
         guard let raiting = movie.raiting, let releaseDate = movie.realeaseDate else { return }
         moreDetailTextView.text = """
-        Дата выхода фильма: \(releaseDate)
-        Рейтинг фильма: \(raiting)
+        \(Constants.dateRealeseText) \(releaseDate)
+        \(Constants.raitingText) \(raiting)
         """
         guard let overview = movie.overview else { return }
         movieOverviewTextview.text = overview

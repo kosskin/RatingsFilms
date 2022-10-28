@@ -25,12 +25,17 @@ final class MovieCell: UITableViewCell {
     }()
 
     private let nameMovieButton: UIButton = {
-        let label = UIButton()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.setTitleColor(UIColor(named: Constants.textColorName), for: .normal)
-        label.backgroundColor = .green
-        label.addTarget(self, action: #selector(showMovieDetailsAction(sender:)), for: .touchUpInside)
-        return label
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitleColor(UIColor(named: Constants.textColorName), for: .normal)
+        button.backgroundColor = .orange
+        button.clipsToBounds = true
+        button.titleLabel?.numberOfLines = 0
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.textAlignment = .center
+        button.layer.cornerRadius = 10
+        button.addTarget(self, action: #selector(showMovieDetailsAction(sender:)), for: .touchUpInside)
+        return button
     }()
 
     private let raitingLabel: UILabel = {

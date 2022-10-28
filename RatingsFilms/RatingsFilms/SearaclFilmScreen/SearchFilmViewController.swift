@@ -21,6 +21,7 @@ final class SearchFilmViewController: UIViewController {
             "https://api.themoviedb.org/3/movie/top_rated?api_key=74448ef651b5d6b0af58f8899305190d&language=en-US&page=1"
         static let upcomingUrl =
             "https://api.themoviedb.org/3/movie/upcoming?api_key=74448ef651b5d6b0af58f8899305190d&language=en-US&page=1"
+        static let requestFailedText = "Request failed "
     }
 
     // MARK: Visual Components
@@ -105,7 +106,7 @@ final class SearchFilmViewController: UIViewController {
                 self?.movies = incomingMoviesList
                 self?.searchTableView.reloadData()
             case let .failure(error):
-                print("Request failed \(error)")
+                print("\(Constants.requestFailedText) \(error)")
             }
         }
     }
@@ -137,7 +138,7 @@ final class SearchFilmViewController: UIViewController {
                     self?.movies = result
                     self?.searchTableView.reloadData()
                 case let .failure(error):
-                    print("Request failed \(error)")
+                    print("\(Constants.requestFailedText) \(error)")
                 }
             }
         case 1:
@@ -147,7 +148,7 @@ final class SearchFilmViewController: UIViewController {
                     self?.movies = result
                     self?.searchTableView.reloadData()
                 case let .failure(error):
-                    print("Request failed \(error)")
+                    print("\(Constants.requestFailedText) \(error)")
                 }
             }
         case 2:
@@ -157,7 +158,7 @@ final class SearchFilmViewController: UIViewController {
                     self?.movies = result
                     self?.searchTableView.reloadData()
                 case let .failure(error):
-                    print("Request failed \(error)")
+                    print("\(Constants.requestFailedText) \(error)")
                 }
             }
         default: break
