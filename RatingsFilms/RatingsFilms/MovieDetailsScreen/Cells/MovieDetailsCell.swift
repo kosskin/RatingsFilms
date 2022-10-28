@@ -25,7 +25,6 @@ final class MovieDetailsCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        // textView.contentInsetAdjustmentBehavior = .automatic
         label.textColor = UIColor(named: Constants.textColorName)
         return label
     }()
@@ -34,7 +33,6 @@ final class MovieDetailsCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
-        // textView.contentInsetAdjustmentBehavior = .automatic
         label.textColor = UIColor(named: Constants.textColorName)
         return label
     }()

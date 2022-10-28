@@ -94,6 +94,7 @@ final class SearchFilmViewController: UIViewController {
     private func configUI() {
         searchTableView.dataSource = self
         searchTableView.delegate = self
+
         view.addSubview(buttonsStackView)
         setConstraintsStackView()
         view.addSubview(searchTableView)
@@ -121,9 +122,9 @@ final class SearchFilmViewController: UIViewController {
     private func setConstraintsStackView() {
         NSLayoutConstraint.activate([
             buttonsStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            buttonsStackView.widthAnchor.constraint(equalToConstant: 300),
+            buttonsStackView.widthAnchor.constraint(equalTo: view.widthAnchor),
             buttonsStackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            buttonsStackView.heightAnchor.constraint(equalToConstant: 20)
+            buttonsStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 
@@ -178,14 +179,18 @@ extension SearchFilmViewController: UITableViewDataSource, UITableViewDelegate {
         ) as? MovieCell
         else { return UITableViewCell() }
         let movie = movies.moviesList[indexPath.row]
+        cell.delegate = self
         cell.setCell(movie: movie)
         return cell
     }
+}
 
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let currnetMovie = movies.moviesList[indexPath.row]
-        let movieDetailsVC = MovieDetailsViewController()
-        movieDetailsVC.currnetMovie = currnetMovie
-        navigationController?.pushViewController(movieDetailsVC, animated: true)
+// MARK: Protocol delegate
+
+extension SearchFilmViewController: PushDelegate {
+    func pushOnVC(movie: Movie) {
+        let nextVC = MovieDetailsViewController()
+        nextVC.currnetMovie = movie
+        navigationController?.pushViewController(nextVC, animated: true)
     }
 }
