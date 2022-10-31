@@ -15,11 +15,11 @@ final class SearchFilmViewController: UIViewController {
         static let backgoundColorName = "backgroundColor"
         static let textColorName = "textColor"
         static let startUrlText = "https://image.tmdb.org/t/p/w300"
-        static let popularUrl =
+        static let popularUrlText =
             "https://api.themoviedb.org/3/movie/popular?api_key=74448ef651b5d6b0af58f8899305190d&language=en-US&page=1"
-        static let topRatingUrl =
+        static let topRatingUrlText =
             "https://api.themoviedb.org/3/movie/top_rated?api_key=74448ef651b5d6b0af58f8899305190d&language=en-US&page=1"
-        static let upcomingUrl =
+        static let upcomingUrlText =
             "https://api.themoviedb.org/3/movie/upcoming?api_key=74448ef651b5d6b0af58f8899305190d&language=en-US&page=1"
         static let requestFailedText = "Request failed "
     }
@@ -80,7 +80,7 @@ final class SearchFilmViewController: UIViewController {
 
     // MARK: Private Properties
 
-    private var movies = MoviesList(moviesList: [])
+    private var movies = MoviesList(movies: [])
     private let networkService = NetworkService()
 
     // MARK: Life Cycle
@@ -95,18 +95,20 @@ final class SearchFilmViewController: UIViewController {
     private func configUI() {
         searchTableView.dataSource = self
         searchTableView.delegate = self
-
         view.addSubview(buttonsStackView)
         setConstraintsStackView()
         view.addSubview(searchTableView)
         setConstraintsTableView()
-        networkService.loadFilmInformation(filmUrl: Constants.popularUrl) { [weak self] movieList in
+        loadListOfMovies()
+    }
+    
+    private func loadListOfMovies() {
+        networkService.loadFilmInformation(filmUrl: Constants.popularUrlText) { [weak self] movieList in
             switch movieList {
             case let .success(movies: incomingMoviesList):
                 self?.movies = incomingMoviesList
                 self?.searchTableView.reloadData()
-            case let .failure(error):
-                print("\(Constants.requestFailedText) \(error)")
+            default: break
             }
         }
     }
@@ -128,39 +130,26 @@ final class SearchFilmViewController: UIViewController {
             buttonsStackView.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
+    
+    private func loadMoviesFromList(listFilmUrl: String) {
+        networkService.loadFilmInformation(filmUrl: listFilmUrl) { [weak self] result in
+            switch result {
+            case let .success(movies: result):
+                self?.movies = result
+                self?.searchTableView.reloadData()
+            default: break
+            }
+        }
+    }
 
     @objc private func sortingButtonAction(sender: UIButton) {
         switch sender.tag {
         case 0:
-            networkService.loadFilmInformation(filmUrl: Constants.popularUrl) { [weak self] result in
-                switch result {
-                case let .success(movies: result):
-                    self?.movies = result
-                    self?.searchTableView.reloadData()
-                case let .failure(error):
-                    print("\(Constants.requestFailedText) \(error)")
-                }
-            }
+            loadMoviesFromList(listFilmUrl: Constants.popularUrlText)
         case 1:
-            networkService.loadFilmInformation(filmUrl: Constants.topRatingUrl) { [weak self] result in
-                switch result {
-                case let .success(movies: result):
-                    self?.movies = result
-                    self?.searchTableView.reloadData()
-                case let .failure(error):
-                    print("\(Constants.requestFailedText) \(error)")
-                }
-            }
+            loadMoviesFromList(listFilmUrl: Constants.topRatingUrlText)
         case 2:
-            networkService.loadFilmInformation(filmUrl: Constants.upcomingUrl) { [weak self] result in
-                switch result {
-                case let .success(movies: result):
-                    self?.movies = result
-                    self?.searchTableView.reloadData()
-                case let .failure(error):
-                    print("\(Constants.requestFailedText) \(error)")
-                }
-            }
+            loadMoviesFromList(listFilmUrl: Constants.upcomingUrlText)
         default: break
         }
     }
@@ -170,7 +159,7 @@ final class SearchFilmViewController: UIViewController {
 
 extension SearchFilmViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        movies.moviesList.count
+        movies.movies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -179,7 +168,7 @@ extension SearchFilmViewController: UITableViewDataSource, UITableViewDelegate {
             for: indexPath
         ) as? MovieCell
         else { return UITableViewCell() }
-        let movie = movies.moviesList[indexPath.row]
+        let movie = movies.movies[indexPath.row]
         cell.delegate = self
         cell.setCell(movie: movie)
         return cell

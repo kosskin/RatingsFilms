@@ -51,7 +51,6 @@ final class NetworkService {
                 }
             }
             if let data = data {
-                print(data)
                 guard let moviesList = try? JSONDecoder().decode(MoviesList.self, from: data) else {
                     resultOfDecoding = .failure(.decodingError)
                     return

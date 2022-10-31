@@ -109,7 +109,10 @@ final class MovieCell: UITableViewCell {
         contentView.addSubview(movieImageView)
         contentView.addSubview(nameMovieButton)
         addSubview(overviewFilmTextFiew)
+        setupAllConstraints()
+    }
 
+    private func setupAllConstraints() {
         NSLayoutConstraint.activate([
             movieImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
             movieImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 5),

@@ -5,10 +5,10 @@ import Foundation
 
 /// Model for get movies array from server
 struct MoviesList: Decodable {
-    let moviesList: [Movie]
+    let movies: [Movie]
 
     enum CodingKeys: String, CodingKey {
-        case moviesList = "results"
+        case movies = "results"
     }
 }
 
